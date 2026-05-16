@@ -1,10 +1,26 @@
 import feedparser
+from sources import SOURCES
 
-RSS_URL = "https://www.cert.ssi.gouv.fr/feed/"
+print("\n/!\ TECHRADAR - VEILLE TECHNOLOGIQUE /!\\n")
 
-feed = feedparser.parse(RSS_URL)
+for source in SOURCES:
+    print("\n" + "=" * 60)
+    print(f"🔵 {source['name']}")
+    print("=" * 60 + "\n")
 
-for entry in feed.entries[:5]:
-    print(f"Titre : {entry.title}")
-    print(f"Lien : {entry.link}")
-    print("-" * 50)
+    try:
+        feed = feedparser.parse(source["url"])
+
+        if not feed.entries:
+            print(" Aucun contenu trouvé pour cette source.\n")
+            continue
+
+        for entry in feed.entries[:5]:
+            print(f"🟡 Titre : {entry.title}")
+            print(f" Lien  : {entry.link}")
+            print("-" * 40)
+
+    except Exception as e:
+        print(f" Erreur source {source['name']} : {e}")
+
+    print("\n")
