@@ -2,3 +2,7 @@ __pycache__/
 venv/
 .env
 *.db
+
+# Windows local scripts
+
+start_*.bat
